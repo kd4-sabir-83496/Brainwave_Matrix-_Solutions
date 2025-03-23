@@ -1,0 +1,94 @@
+package com.brainwave.task1;
+
+import java.util.Scanner;
+
+public class ATM {
+		
+		private double balance;
+		private int pin;
+		
+		public ATM() {
+			this.balance = 1000.00;
+			this.pin = 1234;
+		}
+		
+		public boolean checkPin(int enteredPin) {
+			return this.pin == enteredPin;
+		}
+		
+		public void deposite(double amount) {
+			if(amount > 0) {
+				balance += amount;
+				System.out.println("successfully deposited: $" + amount);
+			}else {
+				System.out.println("Deposit amount mus be positive");
+			}
+		}	
+		
+		public void withdraw(double amount) {
+			if(amount > 0 && amount <= balance) {
+				balance -= amount;
+				System.out.println("Successfully deposited: $" + amount);
+				
+			}else {
+				System.out.println("Insufficient funds or Invalid amount.");
+			}
+		}
+		
+		public void checkBalance() {
+			System.out.println("Your Balance Is:" + balance);
+		}
+		
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		ATM atm = new ATM();
+		
+		System.out.println("Enter your PIN: ");
+		int enteredPin = sc.nextInt();
+		
+		if(!atm.checkPin(enteredPin)){
+			System.out.println("Invalid PIN. Access Denied");
+			return;
+		}
+		
+		while (true) {
+			System.out.println("\nATN Menu: ");
+			System.out.println("0. Exit");
+			System.out.println("1. Check Balance");
+			System.out.println("2. Deposit");
+			System.out.println("3. Withdraw");
+			System.out.println("Select an Option: ");
+			
+			int option = sc.nextInt();
+			
+			switch (option) {
+			
+			case 0:
+				System.out.println("Thank You for using ATM. GoodBye!");
+				break;
+				
+			case 1:
+				atm.checkBalance();
+				break;
+				
+			case 2: 
+				System.out.println("Enter amount to deposit: ");
+				double depositAmount = sc.nextDouble();
+				atm.deposite(depositAmount);
+				break;
+				
+			case 3:
+				System.out.println("Enter amount to withdraw:");
+				double withdrawAmount = sc.nextDouble();
+				atm.withdraw(withdrawAmount);
+				break;
+
+			default:
+				System.out.println("INVALID OPTION. Please try again");
+				break;
+			}
+		}
+	}
+
+}
